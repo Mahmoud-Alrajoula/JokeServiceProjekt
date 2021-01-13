@@ -14,6 +14,7 @@ let textarea = document.getElementById('jokes');
 let deletebutton = document.getElementById('deleteButton');
 
 async function get(url) {
+    console.log(url);
     const respons = await fetch(url);
     if (respons.status !== 200) // OK
         throw new Error(respons.status);
@@ -46,9 +47,6 @@ async function generateJokesTable(jokes) {
 
 async function main() {
     try {
-
-
-        console.log("sætter vores egne jokes ind");
         let jokes = await get('/api/jokes');
         console.log(jokes);
         let generateJokes = await generateJokesTable(jokes);
