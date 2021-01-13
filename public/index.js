@@ -39,7 +39,7 @@ async function post(url, objekt) {
 }
 
 async function generateJokesTable(jokes) {
-    let template = await getText('/index.hbs');
+    let template = await getText('/jokeservice.hbs');
     let compiledTemplate = Handlebars.compile(template);
     return compiledTemplate({ jokes });
 }
