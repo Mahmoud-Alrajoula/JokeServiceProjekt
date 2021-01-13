@@ -28,6 +28,12 @@ async function getText(url) {
     return await respons.text();
 }
 
+async function generateJokesTable(jokes) {
+    let template = await getText('/jokes.hbs');
+    let compiledTemplate = Handlebars.compile(template);
+    return compiledTemplate({ jokes });
+}
+
 async function post(url, objekt) {
     const respons = await fetch(url, {
         method: "POST",
@@ -37,12 +43,6 @@ async function post(url, objekt) {
     if (respons.status !== 200) // Created
         throw new Error(respons.status);
     return await respons.json();
-}
-
-async function generateJokesTable(jokes) {
-    let template = await getText('/jokeservice.hbs');
-    let compiledTemplate = Handlebars.compile(template);
-    return compiledTemplate({ jokes });
 }
 
 async function main() {
