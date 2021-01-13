@@ -1,48 +1,21 @@
 // index.js
-let setupInput = document.querySelector("#setup");
-let punchlineInput = document.querySelector("#punchline");
-let opretButton = document.querySelector('#addButton');
-let rydButton = document.querySelector('#deleteButton');
-let selectSite = document.querySelector('#siteSelector');
-let othersitesObjects = [];
 
+// const joke = require("../Model/joke");
 
-selectSite.onchange = async () => {
-    try {
-        let id;
-        for (site of othersitesObjects) {
-            if (site.name === selectSite.value) {
-                id = site._id
-                break;
-            }
-        }
-        if (selectSite.value !== 'gruppeseks') {
-            document.getElementById('create').style.visibility = 'hidden';
-        } else {
-            document.getElementById('create').style.visibility = 'visible';
-        }
-        visJokes("/api/otherjokes/" + id);
-    }
-    catch (e) {
-        alert("jokeservice Not available")
-    }
-}
+// const { text } = require("express");
 
+// const joke = require("../Model/joke");
+
+let setupInput = document.getElementById("setup");
+let punchlineInput = document.getElementById("punchline");
+let opretButton = document.getElementById('sendButton');
+let selector = document.getElementById('selector');
+let textarea = document.getElementById('jokes');
+let deletebutton = document.getElementById('deleteButton');
 
 async function get(url) {
     const respons = await fetch(url);
     if (respons.status !== 200) // OK
-        throw new Error(respons.status);
-    return await respons.json();
-}
-
-async function post(url, objekt) {
-    const respons = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(objekt),
-        headers: { 'Content-Type': 'application/json' }
-    });
-    if (respons.status !== 201) // Created
         throw new Error(respons.status);
     return await respons.json();
 }
@@ -54,87 +27,104 @@ async function getText(url) {
     return await respons.text();
 }
 
+async function post(url, objekt) {
+    const respons = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(objekt),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (respons.status !== 200) // Created
+        throw new Error(respons.status);
+    return await respons.json();
+}
+
 async function generateJokesTable(jokes) {
-    let template = await getText('/index.hbs');
+    let template = await getText('/jokeservice.hbs');
     let compiledTemplate = Handlebars.compile(template);
     return compiledTemplate({ jokes });
 }
 
-async function visJokes(url) {
-    try {
-        let jokes = await get(url);
-        let textarea = document.querySelector('#jokes')
-        textarea.innerHTML = await generateJokesTable(jokes);
-    } catch (e) {
-        console.log(e.name + ": " + e.message);
-    }
-}
-
-async function getSites() {
-    try {
-        let result = await get('/api/othersites');
-        othersitesObjects = result
-        createSelect(result)
-    }
-    catch (e) {
-        console.log(e);
-    }
-}
-
-
-
 async function main() {
     try {
+
+
+        console.log("sætter vores egne jokes ind");
         let jokes = await get('/api/jokes');
-        let textarea = document.getElementById('jokes')
-        textarea.innerHTML = await generateJokesTable(jokes);
+        console.log(jokes);
+        let generateJokes = await generateJokesTable(jokes);
+        console.log(generateJokes);
+        textarea.value = generateJokes;
+
+        let othersites = await get('https://krdo-joke-registry.herokuapp.com/api/services');
+        for (sites of othersites) {
+            let option = document.createElement('option');
+            option.innerHTML = sites.name;
+            selector.appendChild(option);
+
+        }
     } catch (e) {
         console.log(e.name + ": " + e.message);
     }
 }
-main();
 
-addButton.onclick = async () => {
-    if (setupField.value && punchlineField.value) {
+
+opretButton.onclick = async () => {
+    let setup = setupInput.value;
+    let punchline = punchlineInput.value;
+    console.log(setup + " " + punchline);
+    if (setup && punchline) {
         try {
-            await post("/api/jokes", { setup: setupField.value, punchline: punchlineField.value });
+            await post("/api/jokes", { setup, punchline });
         } catch (e) {
+            console.log(e);
         }
-        setupField.value = ""
-        punchlineField.value = ""
-        visJokes('/api/jokes')
+        setupInput.value = '';
+        punchlineInput.value = '';
+        main();
     }
 }
+selector.addEventListener('change', async () => {
+    textarea.value = "";
+    let jokes = await get('/api/otherjokes/' + selector.value);
+    let finaljokes = [];
+    for (i of jokes)
+        finaljokes.push(i);
+    console.log(finaljokes);
+    let generateJokes = await generateJokesTable(finaljokes);
+    console.log(generateJokes);
+    textarea.value = generateJokes;
+})
+deletebutton.addEventListener('click', async () => {
 
-deleteButton.onclick = () => {
-    setupInput.value = '';
-    punchlineInput.value = '';
-}
 
-async function getSites() {
-    try {
-        let result = await get('https://krdo-joke-registry.herokuapp.com/api/services');
-        createSelect(result)
-    }
-    catch (e) {
-        console.log(e);
-    }
-}
+})
 
-function createSelect(result) {
-    let siteArray = []
-    for (let i = 0; i < result.length; i++) {
-        siteArray.push(result[i].name)
-        let option = document.createElement('option')
-        option.text = siteArray[i]
-        selectSite.add(option, i)
 
-        if (option.text == 'gruppeseks') {
-            option.selected = 'selected';
-        }
-    }
 
-}
+// rydButton.onclick = () => {
+//     setupInput.value = '';
+//     punchlineInput.value = '';
+// }
 
-visJokes('/api/jokes');
-getSites()
+// async function getSites() {
+//     try {
+//         let result = await get('https://krdo-joke-registry.herokuapp.com/api/services');
+//         createSelect(result)
+//     }
+//     catch (e) {
+//         console.log(e);
+//     }
+// }
+
+// function createSelect(result) {
+//     let siteArray = []
+//     for (let i = 0; i < result.length; i++) {
+//         siteArray.push(result[i].address)
+//         let option = document.createElement('option')
+//         option.text = siteArray[i]
+//         selectSite.add(option, i)
+//     }
+// }
+// getSites()
+
+main();
