@@ -85,7 +85,7 @@ opretButton.onclick = async () => {
 }
 selector.addEventListener('change', async () => {
     textarea.value = "";
-    let jokes = await get('/api/otherjokes/' + selector.value);
+    let jokes = await get('/api/routes/otherjokes/' + selector.value);
     let finaljokes = [];
     for (i of jokes)
         finaljokes.push(i);
