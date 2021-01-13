@@ -4,16 +4,16 @@
 <head>
   <title>Joke Service</title>
   <meta charset="UTF-8">
-  <script src="index.js" defer></script>
   <link rel="stylesheet" href="CSS.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="index.js" defer></script>
 </head>
 <div id="page-container">
   <div class="split left">
     <div class="centered">
 
       <body>
-        <h1>Joke Service</h1>
+        <h1>Joke Services</h1>
 
       </body>
     </div>
@@ -23,20 +23,21 @@
 
       <body>
         <div>
-          <p><label>Select Jokeservice: </label> <select id="siteSelector"></select></p>
-          <p><textarea id="jokes" readonly></textarea></p>
+          <p> <select id="selector"></select></p>
+
+          <p><textarea id="jokes" style="font-weight: bold;" readonly></textarea></p>
           <p><label>Setup <input id="setup" type="text"></label></p>
           <p><label>Punchline <input id="punchline" type="text"></label></p>
 
-          <button class="button" id="addButton">Add Joke</button>
-          <button class="button" id="deleteButton">Delete Joke</button>
+
+          <button class="button" id="sendButton">Send</button>
+          <button class="button" id="deleteButton">Delete</button>
 
         </div>
       </body>
       <div id="content-wrap">
 
       </div>
-      <footer id="footer"> @Copyright 2021 Joke Service By Mahmoud
 
     </div>
   </div>
