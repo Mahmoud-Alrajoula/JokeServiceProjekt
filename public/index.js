@@ -46,6 +46,7 @@ async function generateJokesTable(jokes) {
 }
 
 async function main() {
+    post('https://krdo-joke-registry.herokuapp.com/api/services', { name: "Max jokes", address: "https://jokeservice-mahmoud.herokuapp.com/", secret: "Ok" });
     try {
         let jokes = await get('/api/jokes');
         console.log(jokes);
