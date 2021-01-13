@@ -7,8 +7,11 @@ app.use(express.json());
 
 
 // ROUTES FOR THE APP
-const jokeRouter = require("./routes/otherjokes");
+const jokeRouter = require("./routes/joke");
 app.use('/api/jokes', jokeRouter);
+
+const otherjokes = require("./routes/otherjokes");
+app.use('/api/otherjokes', otherjokes);
 
 const othersitesRouter = require("./routes/othersites");
 app.use('/api/othersites', othersitesRouter);
