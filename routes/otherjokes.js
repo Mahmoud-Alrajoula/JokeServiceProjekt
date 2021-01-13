@@ -17,7 +17,7 @@ router
             for (site of result) {
                 if (site._id == request.params.site) {
                     let url = site.address
-                    if(url[url.length - 1] != '/'){
+                    if (url[url.length - 1] != '/') {
                         url += '/'
                     }
                     result = await get(url + 'api/jokes')

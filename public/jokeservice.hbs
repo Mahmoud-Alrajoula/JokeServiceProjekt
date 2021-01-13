@@ -1,5 +1,9 @@
-<h2>Sjove Jokes haha</h2>
-{{#each jokes}}
-<p id="setup">{{setup}}</p>
-<p id="punchline">- {{punchline}}</p><br>
-{{/each}}
+index.hbs
+
+<h2>Jokes</h2>
+<dl>
+    {{#each jokes}}
+    <dt style="font-weight: bold;">{{setup}}</dt>
+    <dd>{{punchline}}</dd><br>
+    {{/each}}
+</dl>
