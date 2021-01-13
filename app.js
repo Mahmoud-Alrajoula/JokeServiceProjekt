@@ -1,13 +1,13 @@
 const express = require('express');
 const config = require('./config');
-
 const app = express();
+
 app.use(express.static('public'));
 app.use(express.json());
 
 
 // ROUTES FOR THE APP
-const jokeRouter = require("./routes/joke");
+const jokeRouter = require("./routes/otherjokes");
 app.use('/api/jokes', jokeRouter);
 
 const othersitesRouter = require("./routes/othersites");
