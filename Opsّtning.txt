@@ -1,0 +1,10 @@
+	CloudDB - Atlas
+		^
+		|
+		V		  
+			
+	Webservice - Heruko	<--->	Joke Registry
+		^
+		|
+		V
+	Web-app - Browser

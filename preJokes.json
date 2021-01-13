@@ -1,0 +1,24 @@
+{
+    "jokes": [
+        {
+            "setup": "If you’re American when you go in the bathroom, and American when you come out, what are you in the bathroom?",
+            "punchline": " European"
+        },
+        {
+            "setup": "What do you call a fish with no eyes?",
+            "punchline": " A fsh"
+        },
+        {
+            "setup": "What do you call a can opener that doesn’t work?",
+            "punchline": " A can’t opener!"
+        },
+        {
+            "setup": "Did you hear about the Italian chef who died?",
+            "punchline": " He pasta-way."
+        },
+        {
+            "setup": "What is Forrest Gump’s email password?",
+            "punchline": " 1forrest1."
+        }
+    ]
+}
