@@ -49,7 +49,7 @@ async function main() {
 
 
         console.log("sætter vores egne jokes ind");
-        let jokes = await get('/api/routes/jokes');
+        let jokes = await get('/api/jokes');
         console.log(jokes);
         let generateJokes = await generateJokesTable(jokes);
         console.log(generateJokes);
@@ -85,7 +85,7 @@ opretButton.onclick = async () => {
 }
 selector.addEventListener('change', async () => {
     textarea.value = "";
-    let jokes = await get('/api/routes/otherjokes/' + selector.value);
+    let jokes = await get('/api/otherjokes/' + selector.value);
     let finaljokes = [];
     for (i of jokes)
         finaljokes.push(i);
