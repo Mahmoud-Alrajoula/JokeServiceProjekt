@@ -6,6 +6,7 @@ let rydButton = document.querySelector('#deleteButton');
 let selectSite = document.querySelector('#siteSelector');
 let othersitesObjects = [];
 
+/*
 selectSite.onchange = async () => {
     try {
         let id;
@@ -26,7 +27,7 @@ selectSite.onchange = async () => {
         alert("jokeservice Not available")
     }
 }
-
+*/
 
 async function get(url) {
     const respons = await fetch(url);
@@ -84,7 +85,7 @@ async function getSites() {
 
 async function main() {
     try {
-        let jokes = await get('/joke/api/jokes');
+        let jokes = await get('/api/jokes');
         let textarea = document.getElementById('jokes')
         textarea.innerHTML = await generateJokesTable(jokes);
     } catch (e) {
