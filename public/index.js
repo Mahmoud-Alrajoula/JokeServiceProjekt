@@ -49,7 +49,7 @@ async function main() {
 
 
         console.log("sætter vores egne jokes ind");
-        let jokes = await get('/api/jokes');
+        let jokes = await get('/api/routes/jokes');
         console.log(jokes);
         let generateJokes = await generateJokesTable(jokes);
         console.log(generateJokes);
