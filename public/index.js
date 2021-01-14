@@ -9,7 +9,7 @@
 let setupInput = document.getElementById("setup");
 let punchlineInput = document.getElementById("punchline");
 let opretButton = document.getElementById('sendButton');
-let selector = document.querySelector('#selector');
+
 let textarea = document.getElementById('jokes');
 let deletebutton = document.getElementById('deleteButton');
 
@@ -84,15 +84,14 @@ opretButton.onclick = async () => {
 }
 selector.addEventListener('change', async () => {
     textarea.value = "";
-    try {
-        let jokes = await get('/api/otherjokes/' + selector.value);
-        console.log(selector.value);
-        let generateJokes = await generateJokesTable(jokes);
-        console.log(generateJokes);
-        textarea.value = generateJokes;
-    } catch (e) {
-        console.log(e.name + ": " + e.message);
-    }
+
+    let selector = document.querySelector('#selector');
+    let jokes = await get('/api/otherjokes/' + selector.value);
+    console.log(selector.value);
+    let generateJokes = await generateJokesTable(jokes);
+    console.log(generateJokes);
+    textarea.value = generateJokes;
+
 })
 deletebutton.addEventListener('click', async () => {
 
