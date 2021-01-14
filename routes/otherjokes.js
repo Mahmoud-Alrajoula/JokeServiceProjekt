@@ -11,23 +11,15 @@ async function get(url) {
 }
 
 router
-    .get('/:site', async (request, response) => {
-        try {
-            let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
-            for (site of result) {
-                if (site._id == request.params.site) {
-                    let url = site.address
-                    if (url[url.length - 1] != '/') {
-                        url += '/'
-                    }
-                    console.log(url);
-                    result = await get(url + '/api/jokes')
-                }
-            }
-            response.send(result)
-        } catch (e) {
-            sendStatus(e, response);
-        }
+    .get('/:site', (req, res) => {
+        // Get jokes from specific service
+        controller.getOtherSiteJokes(req.params.site)
+            .then(result => res.json(result))
+            .catch(err => {
+                console.error("Error: " + err);
+                if (err.stack) console.error(err.stack);
+                res.status(500).send(err);
+            });
 
     })
 

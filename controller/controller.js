@@ -22,3 +22,10 @@ exports.getJokes = function () {
   return Joke.find().populate('joke').exec();
 };
 
+
+exports.getOtherSiteJokes = async function (id) {
+  const site = await exports.findService(id);
+  const response = await fetch(exports.checkUrl(site.address) + 'api/jokes');
+  const json = await response.json();
+  return json;
+};
