@@ -1,0 +1,1 @@
+kunne ikke få løsning at hente jokes fra andre services.
