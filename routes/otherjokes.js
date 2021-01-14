@@ -20,7 +20,7 @@ router
                     if (url[url.length - 1] != '/') {
                         url += '/'
                     }
-                    result = await get(url + 'api/jokes')
+                    result = await get(url + '/api/jokes')
                 }
             }
             response.send(result)

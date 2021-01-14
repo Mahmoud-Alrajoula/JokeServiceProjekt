@@ -1,5 +1,8 @@
 // index.js
 
+const { router } = require("../app");
+const { route } = require("../routes/joke");
+
 // const joke = require("../Model/joke");
 
 // const { text } = require("express");
@@ -84,7 +87,7 @@ opretButton.onclick = async () => {
 }
 selector.addEventListener('change', async () => {
     textarea.value = "";
-    let jokes = await get('/api/otherjokes/' + selector.value);
+    let user = await get('/api/otherjokes/' + selector.value);
     let finaljokes = [];
     for (i of jokes)
         finaljokes.push(i);
