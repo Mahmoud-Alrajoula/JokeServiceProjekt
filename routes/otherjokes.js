@@ -20,6 +20,7 @@ router
                     if (url[url.length - 1] != '/') {
                         url += '/'
                     }
+                    console.log(url);
                     result = await get(url + '/api/jokes')
                 }
             }
