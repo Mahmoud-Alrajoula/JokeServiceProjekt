@@ -15,7 +15,7 @@ router
         try {
             let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
             for (site of result) {
-                if (site.name == request.params.site) {
+                if (site == request.params.site) {
                     let url = site.address
                     if (url[url.length - 1] != '/') {
                         url += '/'
