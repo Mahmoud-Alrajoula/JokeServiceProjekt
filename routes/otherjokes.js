@@ -13,6 +13,7 @@ async function get(url) {
 router
     .get('/:site', (req, res) => {
         // Get jokes from specific service
+        console.log(req.params.site);
         controller.getOtherSiteJokes(req.params.site)
             .then(result => res.json(result))
             .catch(err => {
