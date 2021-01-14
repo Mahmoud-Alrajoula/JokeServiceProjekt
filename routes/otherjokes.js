@@ -11,28 +11,25 @@ async function get(url) {
 }
 
 router
-app.get('/', async (req, res) => {
-    const aljoke = await jokeController.getAllJokes();
-    const jokeData = {
-        "jokeIterator": aljoke
-    }
-    console.log(aljoke);
-
-    // read the file and use the callback to render
-    fs.readFile('Jokeservice2/Views/index.hbs', function (err, data) {
-        if (!err) {
-            // make the buffer into a string
-            var templateStringify = data.toString();
-            // call the render function
-            var template = handlebars.compile(templateStringify);
-            res.send(template(jokeData));
-        } else {
-            // handle file read error
-            console.log(err);
-            res.status(500).send("Error 500: couldn't read template file");
+    .get('/:site', async (request, response) => {
+        try {
+            let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
+            for (site of result) {
+                if (site._id == request.params.site) {
+                    let url = site.address
+                    if (url[url.length - 1] != '/') {
+                        url += '/'
+                    }
+                    console.log(url);
+                    result = await get(url + '/api/jokes')
+                }
+            }
+            response.send(result)
+        } catch (e) {
+            sendStatus(e, response);
         }
+
     })
-});
 
 function sendStatus(e, response) {
     console.error("Exception: " + e);
