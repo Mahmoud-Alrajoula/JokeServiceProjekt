@@ -1,8 +1,5 @@
 // index.js
 
-const { router } = require("../app");
-const { route } = require("../routes/joke");
-
 // const joke = require("../Model/joke");
 
 // const { text } = require("express");
