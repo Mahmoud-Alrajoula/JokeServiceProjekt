@@ -57,7 +57,7 @@ async function main() {
         let othersites = await get('https://krdo-joke-registry.herokuapp.com/api/services');
         for (sites of othersites) {
             let option = document.createElement('option');
-            option.innerHTML = sites._id;
+            option.innerHTML = sites.name;
             selector.appendChild(option);
 
         }
@@ -84,8 +84,9 @@ opretButton.onclick = async () => {
 }
 selector.addEventListener('change', async () => {
     textarea.value = "";
+    let jokes = await get('/api/otherjokes/' + selector.value);
     try {
-        let jokes = await get('/api/otherjokes/' + selector.value);
+
         console.log(selector.value);
         let generateJokes = await generateJokesTable(jokes);
         console.log(generateJokes);
