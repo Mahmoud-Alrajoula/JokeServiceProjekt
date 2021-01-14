@@ -85,12 +85,17 @@ opretButton.onclick = async () => {
 selector.addEventListener('change', async () => {
     textarea.value = "";
 
-    let selector = document.querySelector('#selector');
-    let jokes = await get('/api/otherjokes/' + selector.value);
-    console.log(selector.value);
-    let generateJokes = await generateJokesTable(jokes);
-    console.log(generateJokes);
-    textarea.value = generateJokes;
+    let selector = document.querySelector("#selector");
+    try {
+        let jokes = await get('/api/otherjokes/' + selector.value);
+        console.log(selector.value);
+        let generateJokes = await generateJokesTable(jokes);
+        console.log(generateJokes);
+        textarea.value = generateJokes;
+    } catch (e) {
+        console.log(e.name + ": " + e.message);
+    }
+
 
 })
 deletebutton.addEventListener('click', async () => {
